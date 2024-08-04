@@ -1,0 +1,15 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <fragment th:replace="~{head}"></fragment>
+</head>
+<body>
+    <div class="">
+        <div class="" th:if="${!categories.isEmpty}" th:each="category: ${categories}">
+            <span th:text="${category.category}"></span>
+            <div class="" th:if="${!category.subcategories.isEmpty}" th:each="subcategory: ${category.subcategories}">
+                <span th:text="${subcategory}"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

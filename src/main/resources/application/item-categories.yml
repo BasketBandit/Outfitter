@@ -1,0 +1,32 @@
+Accessory:
+    - "Hat"
+    - "Necklace"
+    - "Scarf"
+    - "Gloves"
+    - "Ring"
+    - "Belt"
+    - "Eyewear"
+Underwear:
+    - "Bra"
+    - "Panties"
+Onepiece:
+    - "Dress"
+    - "Jumpsuit"
+    - "Dungarees"
+Top:
+    - "Shirt"
+    - "Jumper"
+    - "Cardigan"
+Bottom:
+    - "Trousers"
+    - "Skirt"
+    - "Shorts"
+Footwear:
+    - "Socks"
+    - "Shoes"
+    - "Boots"
+    - "Sandals"
+    - "Flip-Flops"
+Outerwear:
+    - "Coat"
+    - "Jacket"

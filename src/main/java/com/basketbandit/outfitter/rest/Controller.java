@@ -1,5 +1,6 @@
 package com.basketbandit.outfitter.rest;
 
+import com.basketbandit.outfitter.Application;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,7 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class Controller {
     @GetMapping("/")
     public ModelAndView index() {
-        ModelAndView mv = new ModelAndView("index");
+        return new ModelAndView("index");
+    }
+
+    @GetMapping("/wardrobe")
+    public ModelAndView wardrobe() {
+        ModelAndView mv = new ModelAndView("wardrobe");
+        mv.addObject("categories", Application.categories);
         return mv;
     }
 }
