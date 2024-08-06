@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class Controller {
+
     @GetMapping("/")
     public ModelAndView index() {
         return new ModelAndView("index");
@@ -15,7 +16,12 @@ public class Controller {
     @GetMapping("/wardrobe")
     public ModelAndView wardrobe() {
         ModelAndView mv = new ModelAndView("wardrobe");
-        mv.addObject("categories", Application.categories);
+        mv.addObject("wardrobe", Application.wardrobe);
         return mv;
+    }
+
+    @GetMapping("/outfits")
+    public ModelAndView outfits() {
+        return new ModelAndView("outfits");
     }
 }
