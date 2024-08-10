@@ -1,3 +1,14 @@
-.item img {
-    width: 100px;
+.d-contents {
+    display: contents!important
+}
+
+.card {
+    position: relative;
+    width: 15rem;
+}
+
+.itemsize {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }

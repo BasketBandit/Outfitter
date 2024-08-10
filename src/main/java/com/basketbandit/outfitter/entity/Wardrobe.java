@@ -3,9 +3,7 @@ package com.basketbandit.outfitter.entity;
 import com.basketbandit.outfitter.database.Item;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class Wardrobe {
@@ -31,6 +29,8 @@ public class Wardrobe {
         categories.forEach(category -> category.subcategories().forEach(subcategory -> {
             if(item.subcategory().equalsIgnoreCase(subcategory.name())) {
                 subcategory.addItem(item);
+            } else {
+                subcategory.items().remove(item.id());
             }
         }));
     }

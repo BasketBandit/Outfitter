@@ -1,17 +1,17 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
     Add Item
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="addItemModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Item</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form th:action="@{/api/v1/wardrobe/add}" enctype="multipart/form-data" method="post">
+            <form class="mb-0" th:action="@{/api/v1/wardrobe/update}" enctype="multipart/form-data" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="itemNameInput" class="form-label">Name</label>
@@ -22,43 +22,36 @@
                         <label for="itemCategory" class="form-label">Category</label>
                         <select id="itemCategory" class="form-select" name="subcategory" aria-label="Category">
                             <div th:each="category: ${wardrobe.categories}" th:remove="tag">
+                                <option class="badge muted" th:value="${category.name}" th:text="${category.name}" disabled></option>
                                 <option th:value="${subcategory.name}" th:text="${subcategory.name}" th:each="subcategory: ${category.subcategories}">
                             </div>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="itemSizeInput" class="form-label">Size</label>
+                        <input id="itemSizeInput" class="form-control" type="number" min="0" max="100" value="0" name="size">
                     </div>
                     <div class="mb-3">
                         <label for="itemImage" class="form-label">Image</label>
                         <input id="itemImage" class="form-control" type="file" accept="image/*" name="image">
                     </div>
                     <div class="mb-3">
-                        <label for="itemSizeInput" class="form-label">Size</label>
-                        <input id="itemSizeInput" class="form-control" type="number" min="0" max="100" name="size">
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label d-block">Season</label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="seasons[]" value="Spring" id="seasonSpring">
-                            <label class="form-check-label" for="seasonSpring">
-                                Spring
-                            </label>
+                            <label class="form-check-label" for="seasonSpring">Spring</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="seasons[]" value="Summer" id="seasonSummer">
-                            <label class="form-check-label" for="seasonSummer">
-                                Summer
-                            </label>
+                            <label class="form-check-label" for="seasonSummer">Summer</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="seasons[]" value="Autumn" id="seasonAutumn">
-                            <label class="form-check-label" for="seasonAutumn">
-                                Autumn
-                            </label>
+                            <label class="form-check-label" for="seasonAutumn">Autumn</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="seasons[]" value="Winter" id="seasonWinter">
-                            <label class="form-check-label" for="seasonWinter">
-                                Winter
-                            </label>
+                            <label class="form-check-label" for="seasonWinter">Winter</label>
                         </div>
                     </div>
                 </div>

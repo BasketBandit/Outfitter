@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Entity
 public class Item {
     @Id
@@ -12,22 +15,9 @@ public class Item {
     private Integer id;
     private String name;
     private String subcategory;
-    private String imagePath;
-    private int size;
-    public String[] seasons;
-
-    public Item() {}
-
-    /*
-    Rename imagePath to imageFilename since path will be static
-     */
-    public Item(String name, String subcategory, String imagePath, int size, String[] seasons) {
-        this.name = name;
-        this.subcategory = subcategory;
-        this.imagePath = imagePath;
-        this.size = size;
-        this.seasons = seasons;
-    }
+    private Integer size;
+    private String[] seasons;
+    private String imageFilename;
 
     public Integer id() {
         return id;
@@ -45,11 +35,35 @@ public class Item {
         return size;
     }
 
-    public String[] seasons() {
-        return seasons;
+    public List<String> seasons() {
+        return Arrays.asList(seasons);
     }
 
-    public String imagePath() {
-        return imagePath;
+    public String imageFilename() {
+        return imageFilename;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public void setSeasons(String[] seasons) {
+        this.seasons = seasons;
+    }
+
+    public void setImageFilename(String imageFilename) {
+        this.imageFilename = imageFilename;
     }
 }
