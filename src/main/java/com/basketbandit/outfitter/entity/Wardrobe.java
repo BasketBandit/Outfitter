@@ -27,6 +27,14 @@ public class Wardrobe {
         });
     }
 
+    public void addItem(Item item) {
+        categories.forEach(category -> category.subcategories().forEach(subcategory -> {
+            if(item.subcategory().equalsIgnoreCase(subcategory.name())) {
+                subcategory.addItem(item);
+            }
+        }));
+    }
+
     public List<Category> categories() {
         return categories;
     }

@@ -1,10 +1,15 @@
 package com.basketbandit.outfitter.rest;
 
+import com.basketbandit.outfitter.Application;
 import com.basketbandit.outfitter.database.Item;
 import com.basketbandit.outfitter.database.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @RestController
@@ -21,11 +26,20 @@ public class ApiController {
         return "Not found.";
     }
 
-    @PostMapping("/api/v1/add/item")
-    public @ResponseBody String addItem(@RequestParam String name, @RequestParam String category, @RequestParam String subcategory, @RequestParam String imagePath) {
-        //Item item = new Item(name, category, subcategory, imagePath);
-        //itemRepository.save(item);
-        return "Saved";
+    @PostMapping("/api/v1/wardrobe/add")
+    public @ResponseBody String addItem(@RequestParam String name, @RequestParam String subcategory, @RequestParam("image") MultipartFile image, @RequestParam int size, @RequestParam String[] seasons) {
+        try {
+            Files.createDirectories(Path.of("/data/img/"));
+            Path path = Paths.get("/data/img/", image.getOriginalFilename());
+            Files.write(path, image.getBytes());
+            Item item = new Item(name, subcategory, "/data/img/"+image.getOriginalFilename(), size, seasons);
+            itemRepository.save(item);
+            Application.wardrobe.addItem(item);
+            return "Success";
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "Failed";
     }
 }
 

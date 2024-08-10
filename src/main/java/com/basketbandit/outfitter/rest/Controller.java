@@ -15,7 +15,7 @@ public class Controller {
 
     @GetMapping("/wardrobe")
     public ModelAndView wardrobe() {
-        ModelAndView mv = new ModelAndView("wardrobe");
+        ModelAndView mv = new ModelAndView("wardrobe/wardrobe");
         mv.addObject("wardrobe", Application.wardrobe);
         return mv;
     }

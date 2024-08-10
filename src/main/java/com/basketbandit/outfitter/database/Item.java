@@ -11,17 +11,22 @@ public class Item {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String category;
     private String subcategory;
     private String imagePath;
+    private int size;
+    public String[] seasons;
 
     public Item() {}
 
-    public Item(String name, String category, String subcategory, String imagePath) {
+    /*
+    Rename imagePath to imageFilename since path will be static
+     */
+    public Item(String name, String subcategory, String imagePath, int size, String[] seasons) {
         this.name = name;
-        this.category = category;
         this.subcategory = subcategory;
         this.imagePath = imagePath;
+        this.size = size;
+        this.seasons = seasons;
     }
 
     public Integer id() {
@@ -32,12 +37,16 @@ public class Item {
         return name;
     }
 
-    public String category() {
-        return category;
-    }
-
     public String subcategory() {
         return subcategory;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public String[] seasons() {
+        return seasons;
     }
 
     public String imagePath() {
