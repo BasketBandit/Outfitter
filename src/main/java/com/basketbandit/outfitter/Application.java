@@ -1,6 +1,7 @@
 package com.basketbandit.outfitter;
 
 import com.basketbandit.outfitter.database.ItemRepository;
+import com.basketbandit.outfitter.database.OutfitRepository;
 import com.basketbandit.outfitter.entity.Wardrobe;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -20,6 +21,8 @@ import java.util.List;
 public class Application {
 	@Resource
 	private ItemRepository itemRepository;
+	@Resource
+	private OutfitRepository outfitRepository;
 	public static Wardrobe wardrobe;
 	public static HashMap<String, List<String>> categories = new HashMap<>();
 	public static Path imageDirectory;
@@ -42,7 +45,7 @@ public class Application {
         Yaml yaml = new Yaml();
 		try(InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("application/item-categories.yml")){
 			categories = yaml.load(inputStream);
-			wardrobe = new Wardrobe(categories, itemRepository.findAll());
+			wardrobe = new Wardrobe(categories, itemRepository.findAll(), outfitRepository.findAll());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

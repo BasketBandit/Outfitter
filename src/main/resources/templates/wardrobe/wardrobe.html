@@ -8,6 +8,7 @@
 
     <div class="container">
         <fragment th:replace="~{wardrobe/additem}"></fragment>
+
         <!-- Wardrobe -->
         <div th:if="${category.size != 0}" th:each="category: ${wardrobe.categories}">
             <span class="navbar-text" th:text="${category.name}"></span>
@@ -17,9 +18,9 @@
                     <div class="d-contents" th:each="item: ${subcategory.items.values}">
                         <div class="card m-2" style="width: 15rem;">
                             <img class="card-img-top" th:src="@{'http://localhost:8080/data/img/'+${item.imageFilename}}" th:alt="${item.name}"/>
-                            <button class="btn btn-outline-success btn-sm itemsize" data-bs-toggle="modal" th:data-bs-target="${'#editItemModal' + item.id}">Edit</button>
+                            <button class="btn btn-outline-success btn-sm itemsize" data-bs-toggle="modal" th:data-bs-target="${'#editItemModal' + item.itemId}">Edit</button>
                             <!-- Update Modal -->
-                            <div class="modal fade" th:id="${'editItemModal' + item.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'editItemModal' + item.itemId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -27,7 +28,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form class="mb-0" th:action="@{/api/v1/wardrobe/update}" enctype="multipart/form-data" method="post">
-                                            <input type="hidden" name="id" th:value="${item.id}">
+                                            <input type="hidden" name="id" th:value="${item.itemId}">
                                             <div class="modal-body">
                                                 <div class="mb-3">
                                                     <label for="itemNameInput" class="form-label">Name</label>

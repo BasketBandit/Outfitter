@@ -1,26 +1,24 @@
 package com.basketbandit.outfitter.database;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@Table(name = "items")
 public class Item {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private Integer itemId;
     private String name;
     private String subcategory;
     private Integer size;
     private String[] seasons;
     private String imageFilename;
 
-    public Integer id() {
-        return id;
+    public Integer itemId() {
+        return itemId;
     }
 
     public String name() {
@@ -43,8 +41,8 @@ public class Item {
         return imageFilename;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     public void setName(String name) {

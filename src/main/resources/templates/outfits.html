@@ -4,5 +4,16 @@
 </head>
 <body>
     <fragment th:replace="~{navigation}"></fragment>
+    <div class="container">
+        <!-- Outfits -->
+        <div class="d-flex m-2" th:if="${wardrobe.outfits.size != 0}" th:each="outfit: ${wardrobe.outfits}">
+            <span th:text="${outfit.name}"></span>
+            <div th:each="item : ${outfit.items}">
+                <div class="float-start">
+                    <img style="width:200px" th:src="@{'http://localhost:8080/data/img/'+${item.imageFilename}}" th:alt="${item.name}"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

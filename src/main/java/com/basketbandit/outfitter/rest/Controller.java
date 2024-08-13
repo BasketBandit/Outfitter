@@ -22,6 +22,8 @@ public class Controller {
 
     @GetMapping("/outfits")
     public ModelAndView outfits() {
-        return new ModelAndView("outfits");
+        ModelAndView mv = new ModelAndView("outfits");
+        mv.addObject("wardrobe", Application.wardrobe);
+        return mv;
     }
 }
