@@ -1,0 +1,3 @@
+INSERT IGNORE INTO (`item_id`,`image_filename`,`name`,`seasons`,`size`,`subcategory`) VALUES (1,'shirthat.webp','Pikmin',?,1,'Hat');
+INSERT IGNORE INTO (`item_id`,`image_filename`,`name`,`seasons`,`size`,`subcategory`) VALUES (2,'shirt.webp','Hat Shirt',?,7,'Shirt');
+INSERT IGNORE INTO (`item_id`,`image_filename`,`name`,`seasons`,`size`,`subcategory`) VALUES (3,'boot.webp','Hat Shirt B',?,0,'Boots');
