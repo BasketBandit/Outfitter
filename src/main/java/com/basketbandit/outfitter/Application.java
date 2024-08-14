@@ -2,6 +2,8 @@ package com.basketbandit.outfitter;
 
 import com.basketbandit.outfitter.database.ItemRepository;
 import com.basketbandit.outfitter.database.OutfitRepository;
+import com.basketbandit.outfitter.database.Season;
+import com.basketbandit.outfitter.database.SeasonRepository;
 import com.basketbandit.outfitter.entity.Wardrobe;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -20,12 +22,15 @@ import java.util.List;
 @SpringBootApplication
 public class Application {
 	@Resource
+	private SeasonRepository seasonRepository;
+	@Resource
 	private ItemRepository itemRepository;
 	@Resource
 	private OutfitRepository outfitRepository;
-	public static Wardrobe wardrobe;
+	public static HashMap<String, Season> seasons = new HashMap<>();
 	public static HashMap<String, List<String>> categories = new HashMap<>();
 	public static Path imageDirectory;
+	public static Wardrobe wardrobe;
 
 	public Application() {}
 
@@ -45,6 +50,7 @@ public class Application {
         Yaml yaml = new Yaml();
 		try(InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("application/item-categories.yml")){
 			categories = yaml.load(inputStream);
+			seasonRepository.findAll().forEach(season -> seasons.put(season.name(), season));
 			wardrobe = new Wardrobe(categories, itemRepository.findAll(), outfitRepository.findAll());
 		} catch(Exception e) {
 			e.printStackTrace();

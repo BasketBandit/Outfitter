@@ -36,7 +36,7 @@ public class Wardrobe {
             if(item.subcategory().equalsIgnoreCase(subcategory.name())) {
                 subcategory.addItem(item);
             } else {
-                subcategory.items().remove(item.itemId());
+                subcategory.items().remove(item.id());
             }
         }));
     }

@@ -1,10 +1,7 @@
 package com.basketbandit.outfitter.rest;
 
 import com.basketbandit.outfitter.Application;
-import com.basketbandit.outfitter.database.Item;
-import com.basketbandit.outfitter.database.ItemRepository;
-import com.basketbandit.outfitter.database.Outfit;
-import com.basketbandit.outfitter.database.OutfitRepository;
+import com.basketbandit.outfitter.database.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +17,8 @@ import java.util.Optional;
 @RestController
 public class ApiController {
     @Autowired
+    private SeasonRepository seasonRepository;
+    @Autowired
     private ItemRepository itemRepository;
     @Autowired
     private OutfitRepository outfitRepository;
@@ -34,13 +33,13 @@ public class ApiController {
     }
 
     @PostMapping("/api/v1/wardrobe/update")
-    public @ResponseBody String updateItem(HttpServletResponse response, @RequestParam Optional<Integer> itemId, @RequestParam Optional<String> name, @RequestParam Optional<String> subcategory, @RequestParam("image") Optional<MultipartFile> image, @RequestParam Optional<Integer> size, @RequestParam Optional<String[]> seasons) {
+    public @ResponseBody String updateItem(HttpServletResponse response, @RequestParam Optional<Integer> id, @RequestParam Optional<String> name, @RequestParam Optional<String> subcategory, @RequestParam("image") Optional<MultipartFile> image, @RequestParam Optional<Integer> size, @RequestParam Optional<String[]> seasons) {
         try {
             Item item = new Item();
 
             // Get existing item from database for update if present.
-            if(itemId.isPresent()) {
-                Optional<Item> temp = itemRepository.findById(itemId.get());
+            if(id.isPresent()) {
+                Optional<Item> temp = itemRepository.findById(id.get());
                 if(temp.isPresent()) {
                     item = temp.get();
                 }
@@ -67,7 +66,11 @@ public class ApiController {
             }
 
             if(seasons.isPresent()) {
-                item.setSeasons(seasons.get());
+                ArrayList<Season> temp = new ArrayList<>();
+                Arrays.stream(seasons.get()).forEach(s -> {
+                    temp.add(Application.seasons.get(s));
+                });
+                item.setSeasons(temp);
             }
 
             itemRepository.save(item);

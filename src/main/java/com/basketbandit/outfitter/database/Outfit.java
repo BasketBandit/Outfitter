@@ -9,14 +9,14 @@ import java.util.List;
 public class Outfit {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer outfitId;
+    private Integer id;
     private String name;
     private String imageFilename;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Item> items;
 
-    public Integer outfitId() {
-        return outfitId;
+    public Integer id() {
+        return id;
     }
 
     public String name() {
@@ -31,8 +31,8 @@ public class Outfit {
         return items;
     }
 
-    public void setOutfitId(Integer outfitId) {
-        this.outfitId = outfitId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {

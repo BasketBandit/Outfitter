@@ -1,3 +1,4 @@
-INSERT IGNORE INTO (`item_id`,`image_filename`,`name`,`seasons`,`size`,`subcategory`) VALUES (1,'shirthat.webp','Pikmin',?,1,'Hat');
-INSERT IGNORE INTO (`item_id`,`image_filename`,`name`,`seasons`,`size`,`subcategory`) VALUES (2,'shirt.webp','Hat Shirt',?,7,'Shirt');
-INSERT IGNORE INTO (`item_id`,`image_filename`,`name`,`seasons`,`size`,`subcategory`) VALUES (3,'boot.webp','Hat Shirt B',?,0,'Boots');
+INSERT IGNORE INTO `seasons` (`id`,`name`) VALUES (1, 'Spring');
+INSERT IGNORE INTO `seasons` (`id`,`name`) VALUES (2, 'Summer');
+INSERT IGNORE INTO `seasons` (`id`,`name`) VALUES (3, 'Autumn');
+INSERT IGNORE INTO `seasons` (`id`,`name`) VALUES (4, 'Winter');

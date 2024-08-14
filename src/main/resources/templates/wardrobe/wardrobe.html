@@ -18,9 +18,9 @@
                     <div class="d-contents" th:each="item: ${subcategory.items.values}">
                         <div class="card m-2" style="width: 15rem;">
                             <img class="card-img-top" th:src="@{'http://localhost:8080/data/img/'+${item.imageFilename}}" th:alt="${item.name}"/>
-                            <button class="btn btn-outline-success btn-sm itemsize" data-bs-toggle="modal" th:data-bs-target="${'#editItemModal' + item.itemId}">Edit</button>
+                            <button class="btn btn-outline-success btn-sm itemsize" data-bs-toggle="modal" th:data-bs-target="${'#editItemModal' + item.id}">Edit</button>
                             <!-- Update Modal -->
-                            <div class="modal fade" th:id="${'editItemModal' + item.itemId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'editItemModal' + item.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -28,7 +28,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form class="mb-0" th:action="@{/api/v1/wardrobe/update}" enctype="multipart/form-data" method="post">
-                                            <input type="hidden" name="id" th:value="${item.itemId}">
+                                            <input type="hidden" name="id" th:value="${item.id}">
                                             <div class="modal-body">
                                                 <div class="mb-3">
                                                     <label for="itemNameInput" class="form-label">Name</label>
@@ -38,10 +38,10 @@
                                                 <div class="mb-3">
                                                     <label for="itemCategory" class="form-label">Category</label>
                                                     <select id="itemCategory" class="form-select" name="subcategory" aria-label="Category">
-                                                        <div th:each="category: ${wardrobe.categories}" th:remove="tag">
+                                                        <th:block th:each="category: ${wardrobe.categories}">
                                                             <option class="muted text-center" th:value="${category.name}" th:text="${category.name}" disabled></option>
                                                             <option th:value="${subcategory.name}" th:text="${subcategory.name}" th:each="subcategory: ${category.subcategories}" th:selected="${subcategory.name} == ${item.subcategory} ? true : false">
-                                                        </div>
+                                                        </th:block>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
@@ -55,19 +55,19 @@
                                                 <div class="mb-3">
                                                     <label class="form-label d-block">Season</label>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Spring" id="seasonSpring" th:checked="${item.seasons.contains('Spring')}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Spring" id="seasonSpring" th:checked="${not item.seasons.?[name == 'Spring'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonSpring">Spring</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Summer" id="seasonSummer" th:checked="${item.seasons.contains('Summer')}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Summer" id="seasonSummer" th:checked="${not item.seasons.?[name == 'Summer'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonSummer">Summer</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Autumn" id="seasonAutumn" th:checked="${item.seasons.contains('Autumn')}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Autumn" id="seasonAutumn" th:checked="${not item.seasons.?[name == 'Autumn'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonAutumn">Autumn</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Winter" id="seasonWinter" th:checked="${item.seasons.contains('Winter')}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Winter" id="seasonWinter" th:checked="${not item.seasons.?[name == 'Winter'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonWinter">Winter</label>
                                                     </div>
                                                 </div>

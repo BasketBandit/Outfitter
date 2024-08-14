@@ -21,6 +21,6 @@ public class Subcategory {
     }
 
     public void addItem(Item item) {
-        this.items.put(item.itemId(), item);
+        this.items.put(item.id(), item);
     }
 }

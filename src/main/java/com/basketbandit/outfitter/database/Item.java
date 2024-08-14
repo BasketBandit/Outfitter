@@ -2,7 +2,6 @@ package com.basketbandit.outfitter.database;
 
 import jakarta.persistence.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -10,15 +9,16 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer itemId;
+    private Integer id;
     private String name;
     private String subcategory;
     private Integer size;
-    private String[] seasons;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Season> seasons;
     private String imageFilename;
 
-    public Integer itemId() {
-        return itemId;
+    public Integer id() {
+        return id;
     }
 
     public String name() {
@@ -33,16 +33,16 @@ public class Item {
         return size;
     }
 
-    public List<String> seasons() {
-        return Arrays.asList(seasons);
+    public List<Season> seasons() {
+        return seasons;
     }
 
     public String imageFilename() {
         return imageFilename;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -57,7 +57,7 @@ public class Item {
         this.size = size;
     }
 
-    public void setSeasons(String[] seasons) {
+    public void setSeasons(List<Season> seasons) {
         this.seasons = seasons;
     }
 

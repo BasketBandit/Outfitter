@@ -21,10 +21,10 @@
                     <div class="mb-3">
                         <label for="itemCategory" class="form-label">Category</label>
                         <select id="itemCategory" class="form-select" name="subcategory" aria-label="Category">
-                            <div th:each="category: ${wardrobe.categories}" th:remove="tag">
+                            <th:block th:each="category: ${wardrobe.categories}">
                                 <option class="badge muted" th:value="${category.name}" th:text="${category.name}" disabled></option>
                                 <option th:value="${subcategory.name}" th:text="${subcategory.name}" th:each="subcategory: ${category.subcategories}">
-                            </div>
+                            </th:block>
                         </select>
                     </div>
                     <div class="mb-3">
