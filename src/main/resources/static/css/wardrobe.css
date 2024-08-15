@@ -2,6 +2,10 @@
     display: contents!important
 }
 
+.row {
+    justify-content: space-around;
+}
+
 .card {
     position: relative;
     width: 15rem;
