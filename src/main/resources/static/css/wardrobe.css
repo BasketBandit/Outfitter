@@ -3,16 +3,80 @@
 }
 
 .row {
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.card {
+.card .card-img-top {
     position: relative;
-    width: 15rem;
+    width: 240px;
+    height: 320px;
+    border-radius: 5px;
 }
 
-.itemsize {
+.card-overlay {
+    display: none;
+}
+
+.card:hover > .card-overlay {
+    display: block;
+}
+
+.card-info {
+    position: absolute;
+    width: 100%;
+    height: 85px;
+    background: rgba(0,0,0,0.3);
+    bottom: 0px;
+    left: 0px;
+    color: #ffffff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.item-edit {
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+.item-size {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.season-icons {
+    width: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    position: absolute;
+    right: 5px;
+    top: 30px;
+}
+
+.season-icons img {
+    width: 25px;
+    height: 25px;
+}
+
+.greyscale {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.spring {
+    border-top-left-radius: 5px;
+}
+
+.summer {
+    border-top-right-radius: 5px;
+}
+
+.autumn {
+    border-bottom-left-radius: 5px;
+}
+
+.winter {
+    border-bottom-right-radius: 5px;
 }
