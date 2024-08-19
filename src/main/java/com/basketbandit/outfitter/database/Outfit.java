@@ -12,7 +12,7 @@ public class Outfit {
     private Integer id;
     private String name;
     private String imageFilename;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Item> items;
 
     public Integer id() {

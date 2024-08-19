@@ -71,6 +71,8 @@ public class ApiController {
                     temp.add(Application.seasons.get(s));
                 });
                 item.setSeasons(temp);
+            } else {
+                item.setSeasons(new ArrayList<>()); // no seasons assigned
             }
 
             itemRepository.save(item);

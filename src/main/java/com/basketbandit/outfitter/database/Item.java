@@ -13,7 +13,7 @@ public class Item {
     private String name;
     private String subcategory;
     private Integer size;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Season> seasons;
     private String imageFilename;
 
