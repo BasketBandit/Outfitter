@@ -24,7 +24,7 @@ public class ApiController {
     private OutfitRepository outfitRepository;
 
     @GetMapping("/api/v1/get/item/{id}")
-    public String getItem(@PathVariable("id") int id) {
+    public String getItem(@PathVariable("id") String id) {
         Optional<Item> item = itemRepository.findById(id);
         if(item.isPresent()) {
             return item.get().name() + " " + item.get().subcategory();
@@ -33,7 +33,7 @@ public class ApiController {
     }
 
     @PostMapping("/api/v1/wardrobe/update")
-    public @ResponseBody String updateItem(HttpServletResponse response, @RequestParam Optional<Integer> id, @RequestParam Optional<String> name, @RequestParam Optional<String> subcategory, @RequestParam("image") Optional<MultipartFile> image, @RequestParam Optional<Integer> size, @RequestParam Optional<String[]> seasons) {
+    public @ResponseBody String updateItem(HttpServletResponse response, @RequestParam Optional<String> id, @RequestParam Optional<String> name, @RequestParam Optional<String> subcategory, @RequestParam("image") Optional<MultipartFile> image, @RequestParam Optional<Integer> size, @RequestParam Optional<String[]> seasons) {
         try {
             Item item = new Item();
 
@@ -90,8 +90,8 @@ public class ApiController {
         }
     }
 
-    @PostMapping("/api/v1/outfit/update")
-    public @ResponseBody String updateOutfit(HttpServletResponse response, @RequestParam Optional<Integer> id, @RequestParam Optional<String> name, @RequestParam("image") Optional<MultipartFile> image, @RequestParam Optional<Integer[]> items) {
+    @PostMapping("/api/v1/outfit/create")
+    public @ResponseBody String updateOutfit(HttpServletResponse response, @RequestParam Optional<String> id, @RequestParam Optional<String> name, @RequestParam("image") Optional<MultipartFile> image, @RequestParam Optional<String[]> items, @RequestParam Optional<String[]> seasons) {
         try {
             Outfit outfit = new Outfit();
 
@@ -109,9 +109,8 @@ public class ApiController {
 
             if(items.isPresent()) {
                 ArrayList<Item> temp = new ArrayList<>();
-                Integer[] ids = items.get();
-                Arrays.stream(ids).forEach(integer -> {
-                    Optional<Item> item = itemRepository.findById(integer);
+                Arrays.stream(items.get()).forEach(string -> {
+                    Optional<Item> item = itemRepository.findById(string);
                     if(item.isPresent()) {
                         temp.add(item.get());
                     }
@@ -119,7 +118,18 @@ public class ApiController {
                 outfit.setItems(temp);
             }
 
+            if(seasons.isPresent()) {
+                ArrayList<Season> temp = new ArrayList<>();
+                Arrays.stream(seasons.get()).forEach(s -> {
+                    temp.add(Application.seasons.get(s));
+                });
+                outfit.setSeasons(temp);
+            } else {
+                outfit.setSeasons(new ArrayList<>()); // no seasons assigned
+            }
+
             outfitRepository.save(outfit);
+            response.sendRedirect("/wardrobe");
             return "Success";
         } catch(Exception e) {
             try { // this is dirt

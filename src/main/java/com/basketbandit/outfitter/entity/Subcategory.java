@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Subcategory {
     private final String name;
-    private final HashMap<Integer, Item> items = new HashMap<>();
+    private final HashMap<String, Item> items = new HashMap<>();
 
     public Subcategory(String name) {
         this.name = name;
@@ -16,7 +16,7 @@ public class Subcategory {
         return name;
     }
 
-    public HashMap<Integer, Item> items() {
+    public HashMap<String, Item> items() {
         return items;
     }
 

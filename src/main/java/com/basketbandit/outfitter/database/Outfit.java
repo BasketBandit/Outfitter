@@ -8,14 +8,16 @@ import java.util.List;
 @Table(name = "outfits")
 public class Outfit {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy=GenerationType.UUID)
+    private String id;
     private String name;
-    private String imageFilename;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Season> seasons;
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Item> items;
+    private String imageFilename;
 
-    public Integer id() {
+    public String id() {
         return id;
     }
 
@@ -23,15 +25,19 @@ public class Outfit {
         return name;
     }
 
-    public String imageFilename() {
-        return imageFilename;
+    public List<Season> seasons() {
+        return seasons;
     }
 
     public List<Item> items() {
         return items;
     }
 
-    public void setId(Integer id) {
+    public String imageFilename() {
+        return imageFilename;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -39,11 +45,15 @@ public class Outfit {
         this.name = name;
     }
 
-    public void setImageFilename(String imageFilename) {
-        this.imageFilename = imageFilename;
+    public void setSeasons(List<Season> seasons) {
+        this.seasons = seasons;
     }
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public void setImageFilename(String imageFilename) {
+        this.imageFilename = imageFilename;
     }
 }

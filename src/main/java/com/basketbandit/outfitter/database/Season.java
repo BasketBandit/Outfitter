@@ -6,11 +6,11 @@ import jakarta.persistence.*;
 @Table(name = "seasons")
 public class Season {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.UUID)
+    private String id;
     private String name;
 
-    public Integer id() {
+    public String id() {
         return id;
     }
 

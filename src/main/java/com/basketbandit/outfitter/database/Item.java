@@ -8,16 +8,16 @@ import java.util.List;
 @Table(name = "items")
 public class Item {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy=GenerationType.UUID)
+    private String id;
     private String name;
     private String subcategory;
     private Integer size;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Season> seasons;
     private String imageFilename;
 
-    public Integer id() {
+    public String id() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class Item {
         return imageFilename;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
