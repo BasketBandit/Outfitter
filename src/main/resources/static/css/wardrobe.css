@@ -45,6 +45,20 @@
     top: 5px;
 }
 
+.item-selected {
+    border-color: green;
+}
+
+#outfit-items {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#outfit-items img {
+    width: 115px;
+    height: 153px;
+}
+
 .season-icons {
     width: 50px;
     display: flex;

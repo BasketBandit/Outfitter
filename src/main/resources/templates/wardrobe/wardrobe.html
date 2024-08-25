@@ -2,12 +2,19 @@
 <head>
     <fragment th:replace="~{head}"></fragment>
     <link rel="stylesheet" type="text/css" href="/css/wardrobe.css" />
+    <script defer src="/js/outfit-selector.js"></script>
 </head>
 <body>
     <fragment th:replace="~{navigation}"></fragment>
 
     <div class="container">
+        <!-- New Item -->
+        <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
         <fragment th:replace="~{wardrobe/additem}"></fragment>
+
+        <!-- New Outfit -->
+        <button id="outfit-create" type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#createOutfitModal" disabled>Create Outfit</button>
+        <fragment th:replace="~{wardrobe/createoutfit}"></fragment>
 
         <!-- Wardrobe -->
         <div class="category mb-2" th:if="${category.size != 0}" th:each="category: ${wardrobe.categories}">
@@ -16,18 +23,18 @@
                 <span class="badge text-bg-primary" th:text="${subcategory.name}"></span>
                 <div class="row">
                     <div class="d-contents" th:each="item: ${subcategory.items.values}">
-                        <div class="card m-2">
-                            <img class="card-img-top" th:src="@{'/data/img/'+${item.imageFilename}}" th:alt="${item.name}"/>
+                        <div th:id="${item.id}" class="item card m-2" th:data-subcategory="${item.subcategory}">
+                            <img th:id="'item-image-'+${item.id}" class="card-img-top" th:src="@{'/data/img/'+${item.imageFilename}}" th:alt="${item.name}"/>
                             <div class="card-overlay">
                                 <button class="btn btn-outline-warning btn-sm item-edit" data-bs-toggle="modal" th:data-bs-target="${'#editItemModal' + item.id}">Edit</button>
                                 <div class="card-info">
                                     <h5 class="card-title p-2"th:text="${item.name}"></h5>
                                     <span class="badge text-bg-success item-size" th:text="${'Size: ' + item.size}"></span>
                                     <div class="season-icons">
-                                        <img th:class="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Spring'].isEmpty() ? 'spring normal' : 'spring greyscale'}" th:src="@{'/data/img/internal/spring.webp'}"/>
-                                        <img th:class="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Summer'].isEmpty() ? 'summer normal' : 'summer greyscale'}" th:src="@{'/data/img/internal/summer.webp'}"/>
-                                        <img th:class="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Autumn'].isEmpty() ? 'autumn normal' : 'autumn greyscale'}" th:src="@{'/data/img/internal/autumn.webp'}"/>
-                                        <img th:class="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Winter'].isEmpty() ? 'winter normal' : 'winter greyscale'}" th:src="@{'/data/img/internal/winter.webp'}"/>
+                                        <img th:class="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Spring'].isEmpty() ? 'spring normal' : 'spring greyscale'}" th:src="@{'/data/img/internal/spring.webp'}"/>
+                                        <img th:class="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Summer'].isEmpty() ? 'summer normal' : 'summer greyscale'}" th:src="@{'/data/img/internal/summer.webp'}"/>
+                                        <img th:class="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Autumn'].isEmpty() ? 'autumn normal' : 'autumn greyscale'}" th:src="@{'/data/img/internal/autumn.webp'}"/>
+                                        <img th:class="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Winter'].isEmpty() ? 'winter normal' : 'winter greyscale'}" th:src="@{'/data/img/internal/winter.webp'}"/>
                                     </div>
                                 </div>
                             </div>
@@ -67,19 +74,19 @@
                                                 <div class="mb-3">
                                                     <label class="form-label d-block">Season</label>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Spring" id="seasonSpring" th:checked="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Spring'].isEmpty()}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Spring" id="seasonSpring" th:checked="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Spring'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonSpring">Spring</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Summer" id="seasonSummer" th:checked="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Summer'].isEmpty()}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Summer" id="seasonSummer" th:checked="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Summer'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonSummer">Summer</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Autumn" id="seasonAutumn" th:checked="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Autumn'].isEmpty()}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Autumn" id="seasonAutumn" th:checked="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Autumn'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonAutumn">Autumn</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Winter" id="seasonWinter" th:checked="${#lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Winter'].isEmpty()}">
+                                                        <input class="form-check-input" type="checkbox" name="seasons[]" value="Winter" id="seasonWinter" th:checked="${item.seasons != null && #lists.size(item.seasons) > 0 && not item.seasons.?[name == 'Winter'].isEmpty()}">
                                                         <label class="form-check-label" for="seasonWinter">Winter</label>
                                                     </div>
                                                 </div>

@@ -1,0 +1,53 @@
+<!-- Modal -->
+<div class="modal fade" id="createOutfitModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Outfit</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="mb-0" th:action="@{/api/v1/outfit/create}" enctype="multipart/form-data" method="post">
+                <input id="itemsInput" type="hidden" name="items[]" value="">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="itemNameInput" class="form-label">Name</label>
+                        <input id="itemNameInput" class="form-control" type="text" name="name" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="itemImage" class="form-label">Image [3:4]</label>
+                        <input id="itemImage" class="form-control" type="file" accept="image/*" name="image">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label d-block">Season</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="seasons[]" value="Spring" id="seasonSpring">
+                            <label class="form-check-label" for="seasonSpring">Spring</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="seasons[]" value="Summer" id="seasonSummer">
+                            <label class="form-check-label" for="seasonSummer">Summer</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="seasons[]" value="Autumn" id="seasonAutumn">
+                            <label class="form-check-label" for="seasonAutumn">Autumn</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="seasons[]" value="Winter" id="seasonWinter">
+                            <label class="form-check-label" for="seasonWinter">Winter</label>
+                        </div>
+                    </div>
+                    <div id="outfit-items">
+                        <th:block th:if="${category.size != 0}" th:each="category: ${wardrobe.categories}">
+                            <div th:id="'outfit-item-'+${subcategory.name}" style="display:contents" th:each="subcategory: ${category.subcategories}"></div>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
